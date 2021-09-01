@@ -1,11 +1,11 @@
-'Conditions:
-'- between 6 and 9 characters long
-'- uppercase characters for Character 1 to 3
-'- numeric characters for Character 4 to 5
-'- uppercase characters for remaining characters
+' Conditions:
+' - between 6 and 9 characters long
+' - uppercase characters for Character 1 to 3
+' - numeric characters for Character 4 to 5
+' - uppercase characters for remaining characters
 
-'Results:
-'- output TRUE if valid, FALSE if otherwise
+' Results:
+' - output TRUE if valid, FALSE if otherwise
 
 Imports System
 
