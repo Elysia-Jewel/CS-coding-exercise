@@ -1,3 +1,5 @@
+' usinng bubble sort, then outputing the last item in array
+
 Imports System
 
 Module Program
