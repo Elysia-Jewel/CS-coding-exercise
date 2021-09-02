@@ -1,3 +1,5 @@
+' self-generating random number
+
 Imports System
 
 Module Program
