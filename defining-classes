@@ -1,0 +1,59 @@
+Class Book 
+  Private Title As String
+  Private ISBN As String
+  Private Price As Decimal = 0.0
+  Private Stock As Integer = 0
+  Private Supplier As String = ""
+  
+  Public Sub New(ByVal x as String, ByVal e as String)
+    Title = x
+    ISBN = e
+  End Sub 
+  
+  Public Sub SetPrice(ByVal p as Decimal)
+      Price = p
+  End Sub 
+  
+  Public Sub SetStock(ByVal n as Integer)
+      Stock = n
+  End Sub 
+  
+  Public Sub SetSupplier(ByVal x as String)
+      Supplier = x
+  End Sub 
+  
+  Public Function GetTitle() As String 
+    Returns(Title)
+  End Function
+  
+  Public Function GetISBN() As String
+    Returns(ISBN)
+  End Function
+  
+  Public Function GetPrice() As Decimal 
+    Returns(Price)
+  End Function
+  
+  Public Function GetStock() As Integer 
+    Returns(Stock)
+  End Function
+  
+  Public Function GetSupplier() As String
+    Returns(Supplier)
+  End Function
+  
+End Class 
+
+Sub main() 
+  Dim Book1 as New Book("Alice in the Wonderland", "9783458017424")
+  
+  Book1.SetPrice(20.00)
+  Book1.SetStock(20)
+  Book1.SetSupplier("James")
+  
+  Console.WriteLine("Title: " & Book1.GetTitle())
+  Console.WriteLine("ISBN: " & Book1.GetISBN())
+  Console.WriteLine("Price: " & Book1.GetPrice())
+  Console.WriteLine("Stock: " & Book1.GetStock())
+  Console.WriteLine("Supplier: " & Book1.GetSupplier())
+End Sub 
