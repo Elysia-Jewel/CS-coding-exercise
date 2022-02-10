@@ -23,23 +23,23 @@ Class Book
   End Sub 
   
   Public Function GetTitle() As String 
-    Returns(Title)
+    Return(Title)
   End Function
   
   Public Function GetISBN() As String
-    Returns(ISBN)
+    Return(ISBN)
   End Function
   
   Public Function GetPrice() As Decimal 
-    Returns(Price)
+    Return(Price)
   End Function
   
   Public Function GetStock() As Integer 
-    Returns(Stock)
+    Return(Stock)
   End Function
   
   Public Function GetSupplier() As String
-    Returns(Supplier)
+    Return(Supplier)
   End Function
   
 End Class 
