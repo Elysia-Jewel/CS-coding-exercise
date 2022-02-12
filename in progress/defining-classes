@@ -1,83 +1,89 @@
-Module VBModule
- Class Animal
-    Private SpeciesName As String 
-    Private AnimalClass As String
-    Private CurrentPopulation As Integer = 0
-    Private Lifespan As Integer
-    Private ConservationStatus As String
-    
-    Public Sub New(ByVal x As String, ByVal y as String, ByVal n as Integer)
-        SpeciesName = x
-        AnimalClass = y
-        Lifespan = n
-    End Sub
-    
-    Public Sub SetPopulation(ByVal n as Integer)
-        CurrentPopulation = n
-    End Sub
-    
-    Public Function GetName() As String
-        Return(SpeciesName)
-    End Function
-    
-    Public Function GetClass() As String 
-        Return(AnimalClass)
-    End Function
-    
-    Public Function GetPopulation() As Integer 
-        Return(CurrentPopulation)
-    End Function 
-    
-    Public Function GetLifespan() As Integer
-        Return(Lifespan)
-    End Function
- 
-    Public Sub SetStatus(ByVal x As String)
-        ConservationStatus = x
-    End Sub 
-    
-    Public Function GetStatus() As String
-        If ConservationStatus = "extinct" Or "Extinct" Then
-            ConservationStatus = "EX"
-        Else 
-            ConservationStatus = "LC"
-        End If
-        Return(ConservationStatus)
-    End Function
- End Class
-    Function Sort() As Array 
-        
-    End Function
+Imports System
+
+Module Program
+
+    Class Animal
+        Private SpeciesName As String
+        Private AnimalClass As String
+        Private CurrentPopulation As Integer = 0
+        Private Lifespan As String
+        Private ConservationStatus As String
+
+        Public Sub New(ByVal x As String, ByVal y As String, ByVal n As String)
+            SpeciesName = x
+            AnimalClass = y
+            Lifespan = n
+        End Sub
+
+        Public Sub SetPopulation(ByVal n As Integer)
+                CurrentPopulation = n
+            End Sub
+
+            Public Function GetName() As String
+                Return (SpeciesName)
+            End Function
+
+            Public Function GetClass() As String
+                Return (AnimalClass)
+            End Function
+
+            Public Function GetPopulation() As Integer
+                Return (CurrentPopulation)
+            End Function
+
+        Public Function GetLifespan() As String
+            Return (Lifespan)
+        End Function
+
+        Public Sub SetStatus(ByVal x As String)
+                ConservationStatus = x
+            End Sub
+
+            Public Function GetStatus() As String
+            If ConservationStatus = "extinct" Or ConservationStatus = "Extinct" Then
+                ConservationStatus = "EX"
+            Else
+                ConservationStatus = "LC"
+                End If
+                Return (ConservationStatus)
+            End Function
+        End Class
+
     Sub Main()
-        Dim Name As String 
-        Dim AniClass As String 
-        Dim Lifespan As Integer
+        Dim Name As String
+        Dim AniClass As String
+        Dim Lifespan As String
         Dim Population As Integer
         Dim ConvStatus As String
         Dim x As Integer
-        
-        For x = 0 To 2
-            Name = Console.ReadLine()
-            AniClass = Console.ReadLine()
-            Lifespan = Console.ReadLine()
-        
-            Dim Animal(x) As New Animal(Name, AniClass, Lifespan)
-            Population = Console.ReadLine
-            ConvStatus = Console.ReadLine
-            Animal(x).SetPopulation(Population)
-            Animal(x).SetStatus(ConvStatus)
-        Next x
-        
-        For x = 0 To 2
-            Console.WriteLine("Name: " & Animal(x).GetName())
-            Console.WriteLine("Lifespan: " & Animal(x).GetLifespan())
-            Console.WriteLine("Class: " & Animal(x).GetClass())
-            Console.WriteLine("Current population: " & Animal(x).GetPopulation())
-            Console.WriteLine("Conservation status: " & Animal(x).GetStatus())
-        Next x
-        
 
-        
+        Console.Write("Name: ")
+        Name = Console.ReadLine()
+        Console.Write("Class: ")
+        AniClass = Console.ReadLine()
+        Console.Write("Lifespan: ")
+        Lifespan = Console.ReadLine()
+
+        Dim Animal1 As New Animal(Name, AniClass, Lifespan)
+        Console.Write("Population: ")
+        Population = Console.ReadLine
+        Console.Write("Conservation status: ")
+        ConvStatus = Console.ReadLine
+        Animal1.SetPopulation(Population)
+        Animal1.SetStatus(ConvStatus)
+
+
+
+        Console.WriteLine("Name: " & Animal1.GetName())
+        Console.WriteLine("Lifespan: " & Animal1.GetLifespan())
+        Console.WriteLine("Class: " & Animal1.GetClass())
+        Console.WriteLine("Current population: " & Animal1.GetPopulation())
+        Console.WriteLine("Conservation status: " & Animal1.GetStatus())
+
+
+
+
     End Sub
-  
+
+
 End Module
