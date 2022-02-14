@@ -42,18 +42,16 @@ Module Program
         Public Function GetBalance() As Boolean
             Return (Balance)
         End Function
-        Public Sub Withdraw(ByVal x As Decimal)
-            If Balance > 0 Then
+        Public Sub Withdraw(ByVal x As Decimal
+            If Balance >= x Then 
                 Balance = Balance - x
-            ElseIf Balance < 0 Then
-                Overdraw = x
-            ElseIf Balance < x Then
+            Else
                 If Overdraw > OverdraftLimit Then
                     Console.WriteLine("Maximum overdraw reached. Transaction has been cancelled.")
                 Else
                     Overdraw = x - Balance
                 End If
-            End If
+            End If        
         End Sub
         Public Sub Deposit(ByVal x As Decimal)
             Balance = Balance + x
