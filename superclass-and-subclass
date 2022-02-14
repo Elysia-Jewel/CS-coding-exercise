@@ -1,93 +1,129 @@
-Module VBModule
- Class BankAccount 
-    Private AccountHolderName As String
-    Private IBAN As String
-    
-    Sub CreateNewAccount(ByVal i As String)
-        IBAN = i
-    End Sub
-    
-    Sub SetAccountHolderName(ByVal x As String)
-        AccountHolderName = x
-    End Sub
-    
-    Public Function GetAccountHolderName() As String
-        Return(AccountHolderName)
-    End Function
-    
-    Public Function GetIBAN() As String
-        Return(IBAN)
-    End Function
- End Class
- 
- Class PersonalAccount
-    Inherits BankAccount
-    Private AccountNum As String 
-    Private OverdraftLimit As Decimal = 0.0
-    Private Overdraw As Decimal = 0.0
-    Private MonthlyFee As Decimal
-    Private Balance As Decimal = 0.0
-    
-    Sub CreatPersonalAccount(ByVal x As String, ByVal y As Decimal)
-        AccountNum = x
-        MonthlyFee = y
-    End Sub
-    
-    Sub SetBalance(ByVal x As Decimal)
-        Balance = x
-    End Sub
-    
-    Sub SetOverdraw(ByVal x As Decimal)
-        Overdraw = x
-    End Sub
-    
-    
- End Class
- 
- Class SavingsAccount
-    Inherits BankAccount
-    Private AccountNum As String
-    Private InterestRate As Integer
-    Private Balance As Decimal = 0.0
+Imports System
+Module Program
+    Class BankAccount
+            Private AccountHolderName As String
+            Private IBAN As String
 
-    Sub CreateAccountNum()
-        Console.WriteLine("Account No.: ")
-        AccountNum = Console.ReadLine
-        Console.WriteLine("InterestRate: ")
-        InterestRate As Integer = Console.ReadLine
-    End Sub 
-    
-    Public Function GetAccountHum() As String 
-        Return(AccountNum)
-    End Function
-    
-    Sub SetBalance(ByVal n As Decimal)
-        Balance = n
-    End Sub
-    
-    Public Function GetBalance() As Boolean 
-        Return(Balance)
-    End Function
-    
-    Public Function CheckBalance() As Boolean 
-        If Balance > 0 Then 
-            Return(True)
-        End If
-    End Function
-    
-    Public Function GetInterestRate() As Integer
-        If CheckBalance() = True Then 
-            Return(InterestRate)
-        Else 
-            Return(0)
-        End If 
-    End Function
-        
-            
-    
- End Class
- 
+        Sub CreateNewAccount()
+            Console.Write("Account holder: ")
+            AccountHolderName = Console.ReadLine()
+            Console.Write("IBAN: ")
+            IBAN = Console.ReadLine()
+        End Sub
+        Sub SetAccountHolderName(ByVal x As String)
+                AccountHolderName = x
+            End Sub
+            Public Function GetAccountHolderName() As String
+                Return (AccountHolderName)
+            End Function
+            Public Function GetIBAN() As String
+                Return (IBAN)
+            End Function
+        End Class
+        Class PersonalAccount
+            Inherits BankAccount
+            Private AccountNum As String
+            Private OverdraftLimit As Decimal = 0.0
+            Private Overdraw As Decimal = 0.0
+            Private MonthlyFee As Decimal
+            Private Balance As Decimal = 0.0
+        Sub CreatePersonalAccount()
+            CreateNewAccount()
+            Console.Write("Acc no.: ")
+            AccountNum = Console.ReadLine
+            Console.Write("Monthly fee: ")
+            MonthlyFee = Console.ReadLine
+            Console.Write("Overdraft limit: ")
+            OverdraftLimit = Console.ReadLine
+        End Sub
+        Public Function GetAccountNum() As String
+            Return (AccountNum)
+        End Function
+        Public Function GetBalance() As Boolean
+            Return (Balance)
+        End Function
+        Public Sub Withdraw(ByVal x As Decimal)
+            If Balance > 0 Then
+                Balance = Balance - x
+            ElseIf Balance < 0 Then
+                Overdraw = x
+            ElseIf Balance < x Then
+                If Overdraw > OverdraftLimit Then
+                    Console.WriteLine("Maximum overdraw reached. Transaction has been cancelled.")
+                Else
+                    Overdraw = x - Balance
+                End If
+            End If
+        End Sub
+        Public Sub Deposit(ByVal x As Decimal)
+            Balance = Balance + x
+        End Sub
+        Public Function GetMonthlyFee() As Boolean
+            Return (MonthlyFee)
+        End Function
+        Public Sub DisplayInfo()
+            Console.WriteLine("Account holder: " & GetAccountHolderName())
+            Console.WriteLine("IBAN: " & GetIBAN())
+            Console.WriteLine("Acc no.: " & AccountNum)
+            Console.WriteLine("Balance: " & Balance)
+            Console.WriteLine("Overdraw " & Overdraw & " / " & OverdraftLimit)
+            Console.WriteLine("Monthly fee: " & MonthlyFee)
+        End Sub
+    End Class
+    Class SavingsAccount
+        Inherits BankAccount
+        Private AccountNum As String
+        Private InterestRate As Double
+        Private Balance As Decimal = 0.0
+        Sub CreateSavingsAccount()
+            CreateNewAccount()
+            Console.Write("Acc no.: ")
+            AccountNum = Console.ReadLine
+            Console.Write("Interest rate: ")
+            InterestRate = Console.ReadLine
+        End Sub
+        Public Function GetAccountNum() As String
+            Return (AccountNum)
+        End Function
+        Public Sub Withdraw(ByVal x As Decimal)
+            If Balance > 0 Then
+                Balance = Balance - x
+            ElseIf Balance < 0 Then
+                Console.WriteLine("Not enough balance. Transaction has been cancelled.")
+            End If
+        End Sub
+        Public Sub Deposit(ByVal x As Decimal)
+            Balance = Balance + x
+        End Sub
+        Public Function GetBalance() As Boolean
+            Return (Balance)
+        End Function
+        Public Function CheckBalance() As Boolean
+            If Balance > 0 Then
+                Return (True)
+            End If
+        End Function
+        Public Function GetInterestRate() As Double
+            If CheckBalance() = True Then
+                Return (InterestRate)
+            Else
+                Return (0)
+            End If
+        End Function
+        Public Sub DisplayInfo()
+            Console.WriteLine("Account holder:" & GetAccountHolderName())
+            Console.WriteLine("IBAN: " & GetIBAN())
+            Console.WriteLine("Acc no.: " & AccountNum)
+            Console.WriteLine("Balance: " & Balance)
+            Console.WriteLine("Interest rate (%): " & GetInterestRate())
+        End Sub
+    End Class
     Sub Main()
+        Dim pAcc1 As New PersonalAccount()
+        Dim sAcc1 As New SavingsAccount()
+        pAcc1.CreatePersonalAccount()
+        sAcc1.CreateSavingsAccount()
+        pAcc1.DisplayInfo()
+        sAcc1.DisplayInfo()
     End Sub
-  
 End Module
