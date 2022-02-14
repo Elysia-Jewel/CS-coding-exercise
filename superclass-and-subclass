@@ -89,7 +89,7 @@ Module Program
             If Balance > 0 Then
                 Balance = Balance - x
             ElseIf Balance < 0 Then
-                Console.WriteLine("Not enough balance. Transaction has been cancelled.")
+                Console.WriteLine("Insufficient balance. Transaction has been cancelled.")
             End If
         End Sub
         Public Sub Deposit(ByVal x As Decimal)
