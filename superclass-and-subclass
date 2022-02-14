@@ -42,7 +42,7 @@ Module Program
         Public Function GetBalance() As Boolean
             Return (Balance)
         End Function
-        Public Sub Withdraw(ByVal x As Decimal
+        Public Sub Withdraw(ByVal x As Decimal)
             If Balance >= x Then 
                 Balance = Balance - x
             Else
