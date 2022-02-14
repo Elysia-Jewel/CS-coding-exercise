@@ -46,7 +46,7 @@ Module Program
             If Balance >= x Then 
                 Balance = Balance - x
             Else
-                If Overdraw > OverdraftLimit Then
+                If Overdraw >= OverdraftLimit Then
                     Console.WriteLine("Maximum overdraw reached. Transaction has been cancelled.")
                 Else
                     Overdraw = x - Balance
