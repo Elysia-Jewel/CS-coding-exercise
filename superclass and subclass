@@ -1,0 +1,93 @@
+Module VBModule
+ Class BankAccount 
+    Private AccountHolderName As String
+    Private IBAN As String
+    
+    Sub CreateNewAccount(ByVal i As String)
+        IBAN = i
+    End Sub
+    
+    Sub SetAccountHolderName(ByVal x As String)
+        AccountHolderName = x
+    End Sub
+    
+    Public Function GetAccountHolderName() As String
+        Return(AccountHolderName)
+    End Function
+    
+    Public Function GetIBAN() As String
+        Return(IBAN)
+    End Function
+ End Class
+ 
+ Class PersonalAccount
+    Inherits BankAccount
+    Private AccountNum As String 
+    Private OverdraftLimit As Decimal = 0.0
+    Private Overdraw As Decimal = 0.0
+    Private MonthlyFee As Decimal
+    Private Balance As Decimal = 0.0
+    
+    Sub CreatPersonalAccount(ByVal x As String, ByVal y As Decimal)
+        AccountNum = x
+        MonthlyFee = y
+    End Sub
+    
+    Sub SetBalance(ByVal x As Decimal)
+        Balance = x
+    End Sub
+    
+    Sub SetOverdraw(ByVal x As Decimal)
+        Overdraw = x
+    End Sub
+    
+    
+ End Class
+ 
+ Class SavingsAccount
+    Inherits BankAccount
+    Private AccountNum As String
+    Private InterestRate As Integer
+    Private Balance As Decimal = 0.0
+
+    Sub CreateAccountNum()
+        Console.WriteLine("Account No.: ")
+        AccountNum = Console.ReadLine
+        Console.WriteLine("InterestRate: ")
+        InterestRate As Integer = Console.ReadLine
+    End Sub 
+    
+    Public Function GetAccountHum() As String 
+        Return(AccountNum)
+    End Function
+    
+    Sub SetBalance(ByVal n As Decimal)
+        Balance = n
+    End Sub
+    
+    Public Function GetBalance() As Boolean 
+        Return(Balance)
+    End Function
+    
+    Public Function CheckBalance() As Boolean 
+        If Balance > 0 Then 
+            Return(True)
+        End If
+    End Function
+    
+    Public Function GetInterestRate() As Integer
+        If CheckBalance() = True Then 
+            Return(InterestRate)
+        Else 
+            Return(0)
+        End If 
+    End Function
+        
+            
+    
+ End Class
+ 
+    Sub Main()
+    End Sub
+  
+End Module
