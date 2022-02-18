@@ -1,0 +1,215 @@
+Imports System
+
+Module Program
+    Class LibraryItem
+        Private Title As String
+        Private Author_Artist As String
+        Private ItemID As String
+        Private OnLoan As Boolean = False
+        Private DueDate As Date = #1/1/1900#
+
+        Sub Create()
+            Console.Write("Title: ")
+            Title = Console.ReadLine
+            Console.Write("Author/Artist name: ")
+            Author_Artist = Console.ReadLine
+            Console.Write("Item ID: ")
+            ItemID = Console.ReadLine
+        End Sub
+
+        Public Function GetTitle()
+            Return (Title)
+        End Function
+        Public Function GetAuthor_Artist() As String
+            Return (Author_Artist)
+        End Function
+        Public Function GetItemID() As String
+            Return (ItemID)
+        End Function
+        Public Function GetOnLoan()
+            If OnLoan = True Then
+                Return ("On loan")
+            Else
+                Return ("Item available")
+            End If
+        End Function
+        Public Function GetDueDate() As Date
+            Return (DueDate)
+        End Function
+        Sub SetOnLoan()
+            If OnLoan = False Then
+                OnLoan = True
+            Else
+                OnLoan = False
+            End If
+        End Sub
+        Sub SetDueDate()
+            If DueDate = #1/1/1900# Then
+                DueDate = DateAdd("d", 5, Today()) 'items can only be borrowed for 5 days at a time
+            Else
+                DueDate = #1/1/1900#
+            End If
+        End Sub
+
+        Sub Borrowing()
+            SetDueDate()
+            SetOnLoan()
+        End Sub
+
+        Sub Returning()
+            SetOnLoan()
+            SetDueDate()
+        End Sub
+        Overridable Sub PrintDetails()
+            Console.WriteLine("Title: " & Title)
+            Console.WriteLine("Author/Artist name: " & Author_Artist)
+            Console.WriteLine("Item number: " & ItemID)
+            Console.WriteLine("Loan status: " & GetOnLoan())
+            Console.WriteLine("Due date: " & DueDate)
+        End Sub
+    End Class
+    Class Book
+        Inherits LibraryItem
+        Private IsRequested As Boolean = False
+
+        Sub SetIsRequested()
+            Console.Write("Request book? ")
+            If Console.ReadLine = "yes" Then
+                IsRequested = True
+            Else
+                IsRequested = False
+            End If
+        End Sub
+        Public Function GetIsRequested()
+            If IsRequested = True Then
+                Return ("Yes")
+            Else
+                Return ("No")
+            End If
+        End Function
+        Overrides Sub PrintDetails()
+            Console.WriteLine("Book Details")
+            MyBase.PrintDetails()
+            Console.WriteLine("Is requested? " & GetIsRequested())
+        End Sub
+    End Class
+    Class CD
+        Inherits LibraryItem
+        Private Genre As String
+
+        Sub SetGenre()
+            Console.Write("Genre: ")
+            Genre = Console.ReadLine
+        End Sub
+        Function GetGenre()
+            Return (Genre)
+        End Function
+        Overrides Sub PrintDetails()
+            Console.WriteLine("CD Details")
+            MyBase.PrintDetails()
+            Console.WriteLine("Genre: " & Genre)
+        End Sub
+    End Class
+    Class Borrower
+        Private Name As String
+        Private IDNum As String
+        Private Email As String = ""
+        Private ExpiryDate As Date
+
+        Sub New()
+            Console.Write("Name: ")
+            Name = Console.ReadLine()
+            Console.Write("ID: ")
+            IDNum = Console.ReadLine()
+            ExpiryDate = DateAdd("yyyy", 2, Today())
+        End Sub
+
+        Sub SetEmail()
+            Console.Write("New email: ")
+            Email = Console.ReadLine
+        End Sub
+
+        Public Function GetName() As String
+            Return (Name)
+        End Function
+        Public Function GetEmail() As String
+            Return (Email)
+        End Function
+        Public Function GetExpiryDate() As Date
+            Return (ExpiryDate)
+        End Function
+        Public Function GetIDNum() As String
+            Return (IDNum)
+        End Function
+        Sub PrintDetails()
+            Console.WriteLine("Borrower Details")
+            Console.WriteLine("Name: " & Name)
+            Console.WriteLine("ID Number: " & IDNum)
+            Console.WriteLine("Email: " & Email)
+            Console.WriteLine("Membership expires on: " & ExpiryDate)
+        End Sub
+    End Class
+
+    Sub Main()
+        Dim choice As Integer
+        Dim book1 As New Book
+        Dim cd1 As New CD
+
+        choice = 0
+        Console.WriteLine("1 - Add a new borrower")
+        Console.WriteLine("2 - Add a new book")
+        Console.WriteLine("3 - Add a new CD")
+        Console.WriteLine("4 - Borrow a book")
+        Console.WriteLine("5 - Return a book")
+        Console.WriteLine("6 - Borrow a CD")
+        Console.WriteLine("7 - Return a CD")
+        Console.WriteLine("8 - Request book")
+        Console.WriteLine("9 - Print all details")
+        Console.WriteLine("99 - Exit program")
+        While choice <> 99
+            Console.Write("Enter your menu choice: ")
+            choice = Console.ReadLine
+            Select Case choice
+                Case 1
+                    Dim borrower1 As New Borrower
+                    borrower1.SetEmail()
+                    Console.WriteLine("CHECK DETAILS BELOW")
+                    borrower1.PrintDetails()
+                Case 2
+                    book1.Create()
+                Case 3
+                    cd1.Create()
+                    cd1.SetGenre()
+                Case 4
+                    Console.Write("Borrow book? ")
+                    If Console.ReadLine = "yes" Then
+                        book1.Borrowing()
+                    End If
+                Case 5
+                    Console.Write("Return book? ")
+                    If Console.ReadLine = "yes" Then
+                        book1.Returning()
+                    End If
+                Case 6
+                    Console.Write("Borrow CD? ")
+                    If Console.ReadLine = "yes" Then
+                        cd1.Borrowing()
+                    End If
+                Case 7
+                    Console.Write("Return CD? ")
+                    If Console.ReadLine = "yes" Then
+                        cd1.Returning()
+                    End If
+                Case 8
+                    Console.Write("Request book? ")
+                    If Console.ReadLine = "yes" Then
+                        book1.SetIsRequested()
+                    End If
+                Case 9
+                    book1.PrintDetails()
+                    cd1.PrintDetails()
+            End Select
+        End While
+
+    End Sub
+End Module
